@@ -10,10 +10,10 @@ public class CameraFollowTarget : TGMonoBehaviour
     [Tooltip("Độ cao của camera so với mặt phẳng của mục tiêu.")]
     public float height = 2f; // Độ cao của camera
     [Tooltip("Khoảng cách lùi lại của camera so với điểm ngay trên mục tiêu (theo hướng nhìn của camera).")]
-    public float distance = 14.5f; // Khoảng cách lùi lại
+    public float distance = 15f; // Khoảng cách lùi lại
     [Tooltip("Góc nghiêng của camera theo trục X (0 = nhìn ngang, 90 = nhìn thẳng xuống).")]
     [Range(0f, 90f)] // Giới hạn giá trị trong khoảng hợp lý
-    public float pitchAngle = 50f; // Góc xoay quanh trục X (pitch), điều chỉnh để có góc nhìn tốt hơn khi có distance
+    public float pitchAngle = 37f; // Góc xoay quanh trục X (pitch), điều chỉnh để có góc nhìn tốt hơn khi có distance
 
     [Header("Damping Settings")]
     [Tooltip("Độ mượt khi camera di chuyển theo mục tiêu (giá trị nhỏ hơn = mượt hơn).")]

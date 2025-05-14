@@ -57,15 +57,15 @@ public class TurretShooting : TGMonoBehaviour
 
     protected virtual void Shooting()
     {
-        Invoke(nameof(this.Shooting), this.shootSpeed);
-        if (this.target == null) return;
+        //Invoke(nameof(this.Shooting), this.shootSpeed);
+        //if (this.target == null) return;
 
-        FirePoint firePoint = this.turretController.FirePoint;
-        BulletController bullet = BulletManager.Instance.BulletPrefabs.GetBulletByEnum(BulletEnum.Bullet_2);
-        BulletController newBullet = this.turretController.BulletSpawner.Spawn(bullet, firePoint.transform.position);
-        Vector3 rotatorDirection = this.turretController.transform.forward;
-        newBullet.transform.forward = rotatorDirection;
-        newBullet.gameObject.SetActive(true);
+        //FirePoint firePoint = this.turretController.FirePoint;
+        //BulletController bullet = BulletManager.Instance.BulletPrefabs.GetBulletByEnum(BulletEnum.Bullet_2);
+        //BulletController newBullet = this.turretController.BulletSpawner.Spawn(bullet, firePoint.transform.position);
+        //Vector3 rotatorDirection = this.turretController.transform.forward;
+        //newBullet.transform.forward = rotatorDirection;
+        //newBullet.gameObject.SetActive(true);
     }
 
     //protected virtual FirePoint GetFirePoint()

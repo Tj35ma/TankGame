@@ -29,6 +29,8 @@ public abstract class EnemyController : PoolObj
     [SerializeField] protected EnemyDespawn enemyDespawn;
     public EnemyDespawn EnemyDespawn => enemyDespawn;
 
+    [SerializeField] protected Rigidbody rigidEnemy;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -40,6 +42,7 @@ public abstract class EnemyController : PoolObj
         this.LoadTurretTargetable();
         this.LoadEnemyDamageReceiver();
         this.LoadEnemyDespawn();
+        this.LoadRigidbody();
     }
     protected virtual void LoadPlayer()
     {
@@ -97,5 +100,13 @@ public abstract class EnemyController : PoolObj
         if(this.enemyDespawn != null) return;
         this.enemyDespawn = GetComponentInChildren<EnemyDespawn>();
         Debug.Log(transform.name + ": LoadEnemyDespawn", gameObject);
+    }
+
+    protected virtual void LoadRigidbody()
+    {
+        if (this.rigidEnemy != null) return;
+        this.rigidEnemy = GetComponent<Rigidbody>();
+        this.rigidEnemy.isKinematic = true;
+        Debug.Log(transform.name + ": LoadRigidbody", gameObject);
     }
 }

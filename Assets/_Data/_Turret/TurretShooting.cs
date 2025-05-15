@@ -51,30 +51,31 @@ public class TurretShooting : TGMonoBehaviour
         Vector3 targetPosition = this.target.TurretTargetable.transform.position;
         Vector3 direction = targetPosition - this.turretController.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        this.turretController.transform.rotation = Quaternion.Lerp(this.turretController.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        float targetYRotationAngle = targetRotation.eulerAngles.y;
+        Quaternion targetRotationYOnly = Quaternion.Euler(0f, targetYRotationAngle, 0f);
+        this.turretController.transform.rotation = Quaternion.Slerp(this.turretController.transform.rotation,targetRotationYOnly,Time.deltaTime * rotationSpeed);
     }
 
 
     protected virtual void Shooting()
     {
-        //Invoke(nameof(this.Shooting), this.shootSpeed);
-        //if (this.target == null) return;
+        Invoke(nameof(this.Shooting), this.shootSpeed);
+        if (this.target == null) return;
 
-        //FirePoint firePoint = this.turretController.FirePoint;
-        //BulletController bullet = BulletManager.Instance.BulletPrefabs.GetBulletByEnum(BulletEnum.Bullet_2);
-        //BulletController newBullet = this.turretController.BulletSpawner.Spawn(bullet, firePoint.transform.position);
-        //Vector3 rotatorDirection = this.turretController.transform.forward;
-        //newBullet.transform.forward = rotatorDirection;
-        //newBullet.gameObject.SetActive(true);
+        FirePoint firePoint = this.GetFirePoint();
+        BulletController newBullet = BulletManager.Instance.BulletSpawner.Spawn(GetBullet(), firePoint.transform.position);
+        Vector3 rotatorDirection = this.turretController.transform.forward;
+        newBullet.transform.forward = rotatorDirection;
+        newBullet.gameObject.SetActive(true);
     }
 
-    //protected virtual FirePoint GetFirePoint()
-    //{
-    //    FirePoint firePoint = this.turretController.FirePoint[this.currentFirePoint];
-    //    this.currentFirePoint++;
-    //    if (this.currentFirePoint == this.turretController.FirePoint.Count) this.currentFirePoint = 0;
-    //    return firePoint;
-    //}
+    protected virtual FirePoint GetFirePoint()
+    {
+        FirePoint firePoint = this.turretController.FirePoints[this.currentFirePoint];
+        this.currentFirePoint++;
+        if (this.currentFirePoint == this.turretController.FirePoints.Count) this.currentFirePoint = 0;
+        return firePoint;
+    }
 
     protected virtual bool IsTargetDead()
     {
@@ -91,5 +92,10 @@ public class TurretShooting : TGMonoBehaviour
         if (this.killCount < count) return false;
         this.killCount -= count;
         return true;
+    }
+
+    protected virtual BulletController GetBullet()
+    {
+        return BulletManager.Instance.BulletPrefabs.GetBulletByEnum(BulletEnum.Bullet_2);
     }
 }

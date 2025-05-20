@@ -36,6 +36,11 @@ public class BulletDamageSender : DamageSender
     protected override void Send(DamageReceiver damageReceiver)
     {
         base.Send(damageReceiver);
-        
+        this.DespawnBullet();
+    }
+
+    protected virtual void DespawnBullet()
+    {
+        this.bulletController.DespawnBase.DoDespawn();
     }
 }

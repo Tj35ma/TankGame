@@ -35,12 +35,12 @@ public class EnemyMoving : EnemyAbstract
             return;
         }
 
-        //if (this.enemyController.EnemyDamageReceiver.IsDead())
-        //{
-        //    this.enemyController.Agent.isStopped = true;
-        //    return;
-        //}
-        
+        if (this.enemyController.EnemyDamageReceiver.IsDead())
+        {
+            this.enemyController.Agent.isStopped = true;
+            return;
+        }
+
 
         if (this.enemyController.PlayerTarget == null)
         {

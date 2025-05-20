@@ -116,14 +116,14 @@ public class TurretTargeting : TGMonoBehaviour
 
     protected virtual void RemoveDeadEnemy()
     {
-        //foreach (EnemyController enemyCtrl in this.enemies)
-        //{
-        //    if (enemyCtrl.EnemyDamageReceiver.IsDead())
-        //    {
-        //        if (enemyCtrl == this.nearest) this.nearest = null;
-        //        this.enemies.Remove(enemyCtrl);
-        //        return;
-        //    }
-        //}
+        foreach (EnemyController enemyCtrl in this.enemies)
+        {
+            if (enemyCtrl.EnemyDamageReceiver.IsDead())
+            {
+                if (enemyCtrl == this.nearest) this.nearest = null;
+                this.enemies.Remove(enemyCtrl);
+                return;
+            }
+        }
     }
 }

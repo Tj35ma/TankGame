@@ -5,6 +5,8 @@ public class EnemyDamageReceiver : DamageReceiver
 {
     [SerializeField] protected CapsuleCollider capsuleCollider;
     [SerializeField] protected EnemyController enemyController;
+    [SerializeField] protected int goldReward = 1;
+    [SerializeField] protected int expReward = 1;
 
     protected override void LoadComponents()
     {
@@ -36,7 +38,7 @@ public class EnemyDamageReceiver : DamageReceiver
         base.OnDead();
         this.enemyController.Animator.SetBool("isDead", this.isDead);
         this.capsuleCollider.enabled = false;
-        //this.RewardOnDead();
+        this.RewardOnDead();
         Invoke(nameof(this.Disappear), 3f);
     }
 
@@ -55,5 +57,11 @@ public class EnemyDamageReceiver : DamageReceiver
     {
         base.OnReborn();
         this.capsuleCollider.enabled = true;
+    }
+
+    protected virtual void RewardOnDead()
+    {        
+        ItemDropManager.Instance.Drop(InventoryEnum.Currencies, ItemEnum.Gold, this.goldReward, transform.position);
+        ItemDropManager.Instance.Drop(InventoryEnum.Currencies, ItemEnum.Exp, this.expReward, transform.position);
     }
 }

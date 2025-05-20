@@ -6,6 +6,7 @@ public abstract class Spawner<T> : TGMonoBehaviour where T : PoolObj
 {
     [SerializeField] protected int spawnCount = 0;
     [SerializeField] protected Transform poolHolder;
+    public void SetParentHolder(T obj) => obj.transform.parent = this.poolHolder.transform;
     [SerializeField] protected List<T> inPoolObjs = new();
 
     [SerializeField] protected PoolPrefabs<T> poolPrefabs;
@@ -39,17 +40,16 @@ public abstract class Spawner<T> : TGMonoBehaviour where T : PoolObj
 
     public virtual T Spawn(T prefab)
     {
-        T newObject = this.GetObjFromPool(prefab);
-        if (newObject == null)
+        T newObj = this.GetObjFromPool(prefab);
+        if (newObj == null)
         {
-            newObject = Instantiate(prefab);
-            this.spawnCount++;
-            this.UpdateName(prefab.transform, newObject.transform);
+            newObj = Instantiate(prefab);
+            newObj.name = prefab.name;
+
         }
-
-        if (this.poolHolder != null) newObject.transform.parent = this.poolHolder.transform;
-
-        return newObject;
+        if (this.poolHolder != null) this.SetParentHolder(newObj);
+        this.spawnCount++;
+        return newObj;
     }
 
     public virtual T Spawn(T prefab, Vector3 position)
@@ -60,20 +60,16 @@ public abstract class Spawner<T> : TGMonoBehaviour where T : PoolObj
     }
 
 
-    public virtual void Despawn(Transform obj)
-    {
-        Destroy(obj.gameObject);
-    }
-
     public virtual void Despawn(T obj)
     {
+        if (obj == null) return;
+
         if (obj is MonoBehaviour monoBehaviour)
         {
+            this.spawnCount--;
+            this.AddObjectToPool(obj);
             monoBehaviour.gameObject.SetActive(false);
         }
-        this.AddObjectToPool(obj);
-
-
     }
 
     protected virtual void AddObjectToPool(T obj)

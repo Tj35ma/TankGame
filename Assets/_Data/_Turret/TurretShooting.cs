@@ -3,10 +3,10 @@ using UnityEngine;
 public class TurretShooting : TGMonoBehaviour
 {
     [SerializeField] protected TurretController turretController;
-    [SerializeField] protected float targetLoadSpeed = 1f;
+    [SerializeField] protected float targetLoadSpeed = 0.2f;
     [SerializeField] protected int currentFirePoint = 0;
-    [SerializeField] protected float shootSpeed = 0.1f;
-    [SerializeField] protected float rotationSpeed = 2f;
+    [SerializeField] protected float shootSpeed = 0.5f;
+    [SerializeField] protected float rotationSpeed = 4f;
     [SerializeField] protected EnemyController target;
     [SerializeField] protected BulletController bullet;
     [SerializeField] public int totalKill = 0;

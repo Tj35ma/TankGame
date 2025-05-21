@@ -6,7 +6,7 @@ public class EnemyDamageReceiver : DamageReceiver
     [SerializeField] protected CapsuleCollider capsuleCollider;
     [SerializeField] protected EnemyController enemyController;
     [SerializeField] protected int goldReward = 1;
-    [SerializeField] protected int expReward = 1;
+    [SerializeField] protected int expReward = 5;
 
     protected override void LoadComponents()
     {
@@ -61,7 +61,7 @@ public class EnemyDamageReceiver : DamageReceiver
 
     protected virtual void RewardOnDead()
     {        
-        ItemDropManager.Instance.Drop(InventoryEnum.Currencies, ItemEnum.Gold, this.goldReward, transform.position);
-        ItemDropManager.Instance.Drop(InventoryEnum.Currencies, ItemEnum.Exp, this.expReward, transform.position);
+        ItemDropManager.Instance.DropMany(ItemEnum.Gold, this.goldReward, transform.position);
+        ItemDropManager.Instance.DropMany(ItemEnum.Exp, this.expReward, transform.position);
     }
 }

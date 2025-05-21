@@ -1,10 +1,12 @@
 using UnityEngine;
 
 [RequireComponent (typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class BulletDamageSender : DamageSender
 {
     [SerializeField] protected BulletController bulletController;
     [SerializeField] protected SphereCollider sphereCollider;
+    [SerializeField] protected Rigidbody bulletRigid;
 
     protected override void ResetValue()
     {
@@ -17,6 +19,7 @@ public class BulletDamageSender : DamageSender
         base.LoadComponents();
         this.LoadBulletController();
         this.LoadSphereCollider();
+        this.LoadRigidbody();
     }
 
     protected virtual void LoadBulletController()
@@ -32,9 +35,16 @@ public class BulletDamageSender : DamageSender
         this.sphereCollider = GetComponent<SphereCollider>();
         Debug.Log(transform.name + ": LoadSphereCollider", gameObject);
     }
+    protected virtual void LoadRigidbody()
+    {
+        if (this.bulletRigid != null) return;
+        this.bulletRigid = GetComponent<Rigidbody>();
+        Debug.Log(transform.name + ": LoadRigidbody", gameObject);
+    }    
 
     protected override void Send(DamageReceiver damageReceiver)
     {
+        if(damageReceiver == PlayerManager.Instance.PlayerDamageReceiver) return;
         base.Send(damageReceiver);
         this.DespawnBullet();
     }

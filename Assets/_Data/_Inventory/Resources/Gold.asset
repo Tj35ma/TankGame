@@ -17,4 +17,4 @@ MonoBehaviour:
   itemName: Gold
   itemSprite: {fileID: 0}
   isStackable: 1
-  isUnlimitedStack: 0
+  isUnlimitedStack: 1

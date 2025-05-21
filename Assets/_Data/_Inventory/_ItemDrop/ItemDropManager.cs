@@ -29,7 +29,15 @@ public class ItemDropManager : TGSingleton<ItemDropManager>
         Debug.Log(transform.name + ": LoadItemDropPrefabs", gameObject);
     }
 
-    public virtual void Drop(InventoryEnum inventoryEnum, ItemEnum itemEnum, int dropCount, Vector3 dropPos)
+    public virtual void DropMany(ItemEnum itemEnum, int dropCount, Vector3 dropPosition)
+    {
+        for (int i = 0; i < dropCount; i++)
+        {
+            this.Drop( itemEnum, 1, dropPosition);
+        }
+    }
+
+    public virtual void Drop(ItemEnum itemEnum, int dropCount, Vector3 dropPos)
     {
         Vector3 spawnPosition = dropPos + new Vector3(Random.Range(-0.5f, 0.5f), spawnHeight, Random.Range(-0.5f, 0.5f));
         ItemDropController itemPrefab = this.itemDropPrefabs.GetPrefabByName(itemEnum.ToString());

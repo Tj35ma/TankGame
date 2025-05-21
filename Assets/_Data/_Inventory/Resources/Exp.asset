@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4eed8e4463d294490f357a48a9737f, type: 3}
   m_Name: Exp
   m_EditorClassIdentifier: 
-  inventoryEnum: 0
-  itemEnum: 0
-  itemName: 
+  inventoryEnum: 1
+  itemEnum: 3
+  itemName: Exp
   itemSprite: {fileID: 0}
-  isStackable: 0
-  isUnlimitedStack: 0
+  isStackable: 1
+  isUnlimitedStack: 1

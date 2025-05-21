@@ -5,6 +5,8 @@ public class PlayerManager : TGSingleton<PlayerManager>
     [SerializeField] protected Camera playerCamera;
     [SerializeField] protected GameObject playerModel;
     [SerializeField] protected PlayerMovement playerMovement;   
+    [SerializeField] protected PlayerDamageReceiver playerDamageReceiver;
+    public PlayerDamageReceiver PlayerDamageReceiver => playerDamageReceiver;
     [SerializeField] Rigidbody playerRigidbody;
     public Rigidbody PlayerRigidbody => playerRigidbody;
 
@@ -15,6 +17,7 @@ public class PlayerManager : TGSingleton<PlayerManager>
         this.LoadModel();
         this.LoadPlayerMovement();
         this.LoadRigidBody();
+        this.LoadPlayerDamageReceiver();
     }
 
     protected virtual void LoadCamera()
@@ -43,5 +46,12 @@ public class PlayerManager : TGSingleton<PlayerManager>
         if(this.playerRigidbody != null) return;
         this.playerRigidbody = transform.GetComponent<Rigidbody>();
         Debug.Log(transform.name + ": LoadRigidBody", gameObject);
+    }
+
+    protected virtual void LoadPlayerDamageReceiver()
+    {
+        if (this.playerDamageReceiver != null) return;
+        this.playerDamageReceiver = transform.GetComponentInChildren<PlayerDamageReceiver>();
+        Debug.Log(transform.name + ": LoadPlayerDamageReceiver", gameObject);
     }
 }

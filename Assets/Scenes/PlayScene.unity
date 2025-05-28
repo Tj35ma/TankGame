@@ -796,7 +796,7 @@ GameObject:
   - component: {fileID: 368541139}
   - component: {fileID: 368541138}
   m_Layer: 0
-  m_Name: EnemyDamageSender
+  m_Name: EnemyAttacking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -829,7 +829,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fee208d5465ab448b0928ec7cb74fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
+  isAttacking: 0
+  attackRange: 2
+  attackCooldown: 1.5
+  attackDamage: 10
+  lookAtSpeed: 8
   enemyController: {fileID: 387734000}
   sphereCollider: {fileID: 368541139}
   enemyRigid: {fileID: 387733998}
@@ -937,7 +942,6 @@ Transform:
   m_Children:
   - {fileID: 7180995668028682382}
   - {fileID: 189830971}
-  - {fileID: 1315359581}
   - {fileID: 1829919769}
   - {fileID: 1640015115}
   - {fileID: 1251918646}
@@ -960,10 +964,10 @@ MonoBehaviour:
   agent: {fileID: 387733996}
   animator: {fileID: 7215537353593406602}
   enemyMoving: {fileID: 189830972}
-  enemyAttacking: {fileID: 1315359582}
   player: {fileID: 527265465}
   turretTargetable: {fileID: 1829919770}
   enemyDamageReceiver: {fileID: 1251918644}
+  enemyDamageSender: {fileID: 368541138}
   enemyDespawn: {fileID: 1640015114}
   rigidEnemy: {fileID: 387733998}
   enemyEnum: 1
@@ -1352,7 +1356,7 @@ Transform:
   m_GameObject: {fileID: 527265464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1388,7 +1392,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &527265467
 BoxCollider:
@@ -2755,56 +2759,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287872908}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1315359580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1315359581}
-  - component: {fileID: 1315359582}
-  m_Layer: 0
-  m_Name: EnemyAttacking
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1315359581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315359580}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 387733999}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1315359582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315359580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267902c2503c8c04ea35d7fdbd658e94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyController: {fileID: 387734000}
-  isAttacking: 0
-  attackRange: 2
-  attackCooldown: 1.5
-  attackDamage: 10
-  lookAtSpeed: 8
 --- !u!1 &1324060000
 GameObject:
   m_ObjectHideFlags: 0

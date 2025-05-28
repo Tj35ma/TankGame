@@ -40,7 +40,15 @@ public class BulletDamageSender : DamageSender
         if (this.bulletRigid != null) return;
         this.bulletRigid = GetComponent<Rigidbody>();
         Debug.Log(transform.name + ": LoadRigidbody", gameObject);
-    }    
+    }
+
+    public virtual void OnTriggerEnter(Collider collider)
+    {
+        DamageReceiver damageReceiver = collider.GetComponent<DamageReceiver>();
+        if (damageReceiver == null) return;
+        this.Send(damageReceiver);
+        Debug.Log("OnTriggerEnter: " + collider.name);
+    }
 
     protected override void Send(DamageReceiver damageReceiver)
     {

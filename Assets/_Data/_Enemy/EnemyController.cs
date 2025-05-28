@@ -12,10 +12,7 @@ public abstract class EnemyController : PoolObj
     public Animator Animator => animator;
 
     [SerializeField] protected EnemyMoving enemyMoving;
-    public EnemyMoving EnemyMoving => enemyMoving;
-
-    [SerializeField] protected EnemyAttacking enemyAttacking;
-    public EnemyAttacking EnemyAttacking => enemyAttacking;
+    public EnemyMoving EnemyMoving => enemyMoving;    
 
     [SerializeField] protected Transform player;
     public Transform PlayerTarget => player;
@@ -25,6 +22,9 @@ public abstract class EnemyController : PoolObj
 
     [SerializeField] protected EnemyDamageReceiver enemyDamageReceiver;
     public EnemyDamageReceiver EnemyDamageReceiver => enemyDamageReceiver;
+
+    [SerializeField] protected EnemyAttacking enemyDamageSender;
+    public EnemyAttacking EnemyDamageSender => enemyDamageSender;
 
     [SerializeField] protected EnemyDespawn enemyDespawn;
     public EnemyDespawn EnemyDespawn => enemyDespawn;
@@ -37,10 +37,10 @@ public abstract class EnemyController : PoolObj
         this.LoadNavMeshAgent();
         this.LoadAnimator();
         this.LoadEnemyMoving();
-        this.LoadEnemyAttacking();
         this.LoadPlayer();
         this.LoadTurretTargetable();
         this.LoadEnemyDamageReceiver();
+        this.LoadEnemyDamageSender();
         this.LoadEnemyDespawn();
         this.LoadRigidbody();
     }
@@ -73,14 +73,7 @@ public abstract class EnemyController : PoolObj
         if (this.enemyMoving != null) return;
         this.enemyMoving = GetComponentInChildren<EnemyMoving>();
         Debug.Log(transform.name + ": LoadEnemyMoving", gameObject);
-    }
-
-    protected virtual void LoadEnemyAttacking()
-    {
-        if (this.enemyAttacking != null) return;
-        this.enemyAttacking = GetComponentInChildren<EnemyAttacking>();
-        Debug.Log(transform.name + ": LoadEnemyAttacking", gameObject);
-    }
+    }   
 
     protected virtual void LoadTurretTargetable()
     {
@@ -93,6 +86,13 @@ public abstract class EnemyController : PoolObj
         if (this.enemyDamageReceiver != null) return;
         this.enemyDamageReceiver = GetComponentInChildren<EnemyDamageReceiver>();
         Debug.Log(transform.name + ": LoadEnemyDamageReceiver", gameObject);
+    }
+
+    protected virtual void LoadEnemyDamageSender()
+    {
+        if (this.enemyDamageSender != null) return;
+        this.enemyDamageSender = GetComponentInChildren<EnemyAttacking>();
+        Debug.Log(transform.name + ": LoadEnemyDamageSender", gameObject);
     }
 
     protected virtual void LoadEnemyDespawn()

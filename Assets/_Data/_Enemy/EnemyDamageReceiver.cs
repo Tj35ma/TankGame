@@ -35,7 +35,7 @@ public class EnemyDamageReceiver : DamageReceiver
 
     protected override void OnDead()
     {
-        base.OnDead();
+        base.OnDead();        
         this.enemyController.Animator.SetBool("isDead", this.isDead);
         this.capsuleCollider.enabled = false;
         this.RewardOnDead();

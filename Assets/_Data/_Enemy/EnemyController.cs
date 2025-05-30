@@ -23,8 +23,8 @@ public abstract class EnemyController : PoolObj
     [SerializeField] protected EnemyDamageReceiver enemyDamageReceiver;
     public EnemyDamageReceiver EnemyDamageReceiver => enemyDamageReceiver;
 
-    [SerializeField] protected EnemyAttacking enemyDamageSender;
-    public EnemyAttacking EnemyDamageSender => enemyDamageSender;
+    [SerializeField] protected EnemyAttacking enemyAttacking;
+    public EnemyAttacking EnemyAttacking => enemyAttacking;
 
     [SerializeField] protected EnemyDespawn enemyDespawn;
     public EnemyDespawn EnemyDespawn => enemyDespawn;
@@ -90,8 +90,8 @@ public abstract class EnemyController : PoolObj
 
     protected virtual void LoadEnemyDamageSender()
     {
-        if (this.enemyDamageSender != null) return;
-        this.enemyDamageSender = GetComponentInChildren<EnemyAttacking>();
+        if (this.enemyAttacking != null) return;
+        this.enemyAttacking = GetComponentInChildren<EnemyAttacking>();
         Debug.Log(transform.name + ": LoadEnemyDamageSender", gameObject);
     }
 

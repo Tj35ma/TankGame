@@ -7,6 +7,9 @@ public class PlayerManager : TGSingleton<PlayerManager>
     [SerializeField] protected PlayerMovement playerMovement;   
     [SerializeField] protected PlayerDamageReceiver playerDamageReceiver;
     public PlayerDamageReceiver PlayerDamageReceiver => playerDamageReceiver;
+    [SerializeField] protected PlayerLevel playerLevel;
+    public PlayerLevel PlayerLevel => playerLevel;
+
     [SerializeField] Rigidbody playerRigidbody;
     public Rigidbody PlayerRigidbody => playerRigidbody;
 
@@ -54,4 +57,11 @@ public class PlayerManager : TGSingleton<PlayerManager>
         this.playerDamageReceiver = transform.GetComponentInChildren<PlayerDamageReceiver>();
         Debug.Log(transform.name + ": LoadPlayerDamageReceiver", gameObject);
     }
+
+    protected virtual void LoadPlayerLevel()
+    {
+        if (this.playerLevel != null) return;
+        this.playerLevel = transform.GetComponentInChildren<PlayerLevel>();
+        Debug.Log(transform.name + ": LoadPlayerLevel", gameObject);
+    }    
 }

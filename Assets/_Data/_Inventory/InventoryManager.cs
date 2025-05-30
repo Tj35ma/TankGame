@@ -10,7 +10,8 @@ public class InventoryManager : TGSingleton<InventoryManager>
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadInventories();        
+        this.LoadInventories();
+        this.LoadItemProfiles();
     }    
 
     protected virtual void LoadInventories()

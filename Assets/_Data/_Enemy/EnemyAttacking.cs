@@ -4,8 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class EnemyAttacking : DamageSender
 {
-    [SerializeField] protected bool isAttacking = false;
-
     [SerializeField] protected float attackRange = 2f; // How close to attack
     [SerializeField] protected float attackCooldown = 1.5f; // Time between attacks
     [SerializeField] protected int attackDamage = 10; // Damage per attack
@@ -63,9 +61,9 @@ public class EnemyAttacking : DamageSender
     {
         DamageReceiver damageReceiver = collider.GetComponent<DamageReceiver>();
         if (damageReceiver == null) return;
+        if (this.enemyController.EnemyDamageReceiver.IsDead()) return;
         this.enemyController.Agent.isStopped = true;
         FacePlayer(); // Turn to face the player
-
         // Check if attack is off cooldown
         if (Time.time >= this.lastAttackTime + this.attackCooldown)
         {
@@ -85,5 +83,5 @@ public class EnemyAttacking : DamageSender
 
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)); // Look on Y-axis only
         transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, lookRotation, Time.deltaTime * this.lookAtSpeed);
-    }
+    }    
 }

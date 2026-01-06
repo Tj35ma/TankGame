@@ -19,7 +19,7 @@ public class TGMonoBehaviour : MonoBehaviour
     }
     protected virtual void OnEnable()
     {
-        // For Override 
+        this.LoadComponents();
     }
     protected virtual void OnDisable()
     {

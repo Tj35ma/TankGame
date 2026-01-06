@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SphereCollider))]
 
 public class TurretTargeting : TGMonoBehaviour
 {
     [SerializeField] protected SphereCollider sphereCollider;
+    public SphereCollider SphereCollider => sphereCollider;
     [SerializeField] protected Rigidbody rigid;
 
     [SerializeField] protected EnemyController nearest;
@@ -43,8 +43,7 @@ public class TurretTargeting : TGMonoBehaviour
     protected virtual void LoadSphereCollider()
     {
         if (this.sphereCollider != null) return;
-        this.sphereCollider = GetComponent<SphereCollider>();
-        this.sphereCollider.radius = 10f;
+        this.sphereCollider = GetComponent<SphereCollider>();       
         this.sphereCollider.isTrigger = true;
         Debug.Log(transform.name + ": LoadSphereCollider", gameObject);
     }
@@ -60,8 +59,7 @@ public class TurretTargeting : TGMonoBehaviour
     protected virtual void AddEnemy(Collider collider)
     {
         if (collider.name != "TurretTargetable") return;
-        EnemyController enemyCtrl = collider.transform.parent.GetComponent<EnemyController>();
-        //if (enemyCtrl.EnemyDamageReceiver.IsDead()) return;
+        EnemyController enemyCtrl = collider.transform.parent.GetComponent<EnemyController>();        
         this.enemies.Add(enemyCtrl);
     }
 
@@ -97,8 +95,8 @@ public class TurretTargeting : TGMonoBehaviour
 
     protected virtual bool CanSeeTarget(EnemyController target)
     {
-        Vector3 directionToTarget = target.transform.position - transform.parent.position;
-        float distanceToTarget = directionToTarget.magnitude;
+        Vector3 directionToTarget = target.transform.position - PlayerManager.Instance.transform.position;
+        float distanceToTarget = directionToTarget.magnitude;        
 
         if (Physics.Raycast(transform.parent.position, directionToTarget, out RaycastHit hitInfo, distanceToTarget, this.obstacleLayerMask))
         {
@@ -125,5 +123,5 @@ public class TurretTargeting : TGMonoBehaviour
                 return;
             }
         }
-    }
+    }   
 }

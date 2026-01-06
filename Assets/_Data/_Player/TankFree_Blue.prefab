@@ -100,6 +100,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSteeringWheel: 0
+--- !u!1 &295678818493981290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7099468223519768181}
+  m_Layer: 0
+  m_Name: Turrets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7099468223519768181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295678818493981290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 882049764820421295}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2679074395753833731
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +290,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 30
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6111476815386739510
 MonoBehaviour:
@@ -325,10 +356,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretController: {fileID: 6389660587278096570}
-  targetLoadSpeed: 0.2
+  targetLoadSpeed: 0.05
   currentFirePoint: 0
   shootSpeed: 0.5
-  rotationSpeed: 4
+  rotationSpeed: 10
   target: {fileID: 0}
   bullet: {fileID: 0}
   totalKill: 0
@@ -610,6 +641,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1403943758756977679}
+  - {fileID: 7099468223519768181}
   - {fileID: 5055829578935203554}
   - {fileID: 971080084451564176}
   - {fileID: 3207399470195369572}

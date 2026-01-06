@@ -1,43 +1,22 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretController : TGMonoBehaviour
+public abstract class TurretController : TGMonoBehaviour
 {
-    [SerializeField] protected TurretTargeting turretTargeting;
-    public TurretTargeting TurretTargeting => turretTargeting;
-
-    [SerializeField] protected TurretShooting turretShooting;
-
-    [SerializeField] protected List<FirePoint> firePoints = new();
-    public List<FirePoint> FirePoints => firePoints;
+    [SerializeField] protected float attackRange = 10f;
+    [SerializeField] protected SphereCollider sphereCollider;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadTuretTargeting();
-        this.LoadTurretShooting();
-        this.LoadFirePoint();
+        this.LoadSphereCollider();   
     }
 
-    protected virtual void LoadTuretTargeting()
+    protected virtual void LoadSphereCollider()
     {
-        if (this.turretTargeting != null) return;
-        this.turretTargeting = transform.GetComponentInChildren<TurretTargeting>();
-        Debug.Log(transform.name + ": LoadTuretTargeting", gameObject);
-    }
-
-    protected virtual void LoadTurretShooting()
-    {
-        if (this.turretShooting != null) return;
-        this.turretShooting = transform.GetComponentInChildren<TurretShooting>();
-        Debug.Log(transform.name + ": LoadTurretShooting", gameObject);
-    }
-    
-    protected virtual void LoadFirePoint()
-    {
-        if (this.firePoints.Count > 0) return;
-        FirePoint[] points = transform.GetComponentsInChildren<FirePoint>();
-        this.firePoints = new List<FirePoint>(points);
-        Debug.Log(transform.name + ": LoadFirePoint", gameObject);
+        if (this.sphereCollider != null) return;
+        this.sphereCollider = TurretManager.Instance.TurretTargeting.SphereCollider;
+        this.sphereCollider.radius = this.attackRange;
+        this.sphereCollider.isTrigger = true;
+        Debug.Log(transform.name + ": LoadSphereCollider", gameObject);
     }
 }

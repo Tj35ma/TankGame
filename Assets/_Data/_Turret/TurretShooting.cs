@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class TurretShooting : TGMonoBehaviour
 {
-    [SerializeField] protected TurretController turretController;
-    [SerializeField] protected float targetLoadSpeed = 0.2f;
+    [SerializeField] protected TurretManager turretController;
+    [SerializeField] protected float targetLoadSpeed = 1f;
     [SerializeField] protected int currentFirePoint = 0;
     [SerializeField] protected float shootSpeed = 0.5f;
-    [SerializeField] protected float rotationSpeed = 4f;
+    [SerializeField] protected float rotationSpeed = 10f;
     [SerializeField] protected EnemyController target;
     [SerializeField] protected BulletController bullet;
     [SerializeField] public int totalKill = 0;
@@ -22,32 +22,36 @@ public class TurretShooting : TGMonoBehaviour
     protected virtual void LoadTurretController()
     {
         if (this.turretController != null) return;
-        this.turretController = GetComponentInParent<TurretController>();
+        this.turretController = GetComponentInParent<TurretManager>();
         Debug.Log(transform.name + ": LoadTurretController", gameObject);
     }
 
     protected override void Start()
     {
         base.Start();
-        Invoke(nameof(this.TargetLoading), this.targetLoadSpeed);
-        Invoke(nameof(this.Shooting), this.shootSpeed);
+        //InvokeRepeating(nameof(this.TargetLoading), this.targetLoadSpeed, this.targetLoadSpeed);
+        InvokeRepeating(nameof(this.Shooting), this.shootSpeed, this.shootSpeed);
+        //Invoke(nameof(this.TargetLoading), this.targetLoadSpeed);
+        //Invoke(nameof(this.Shooting), this.shootSpeed);
     }
 
     protected void FixedUpdate()
     {
         this.Looking();
         this.IsTargetDead();
+        this.TargetLoading();
     }
 
     protected virtual void TargetLoading()
     {
-        Invoke(nameof(this.TargetLoading), this.targetLoadSpeed);
+        //Invoke(nameof(this.TargetLoading), this.targetLoadSpeed);
         this.target = this.turretController.TurretTargeting.Nearest;
     }
 
     protected virtual void Looking()
     {
-        if (this.target == null) return;
+        if (this.target == null) return;      
+
         Vector3 targetPosition = this.target.TurretTargetable.transform.position;
         Vector3 direction = targetPosition - this.turretController.transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -59,8 +63,13 @@ public class TurretShooting : TGMonoBehaviour
 
     protected virtual void Shooting()
     {
-        Invoke(nameof(this.Shooting), this.shootSpeed);
+        //Invoke(nameof(this.Shooting), this.shootSpeed);
         if (this.target == null) return;
+        //Vector3 turretPositionXZ = new Vector3(this.turretController.transform.position.x, 0f, this.turretController.transform.position.z);
+        //Vector3 targetPositionXZ = new Vector3(this.target.transform.position.x, 0f, this.target.transform.position.z);
+        //Vector3 directionToTarget = targetPositionXZ - turretPositionXZ;
+        //float angleToTarget = Vector3.Angle(this.turretController.transform.forward, directionToTarget);
+        //if (angleToTarget > 7.0f) return;
 
         FirePoint firePoint = this.GetFirePoint();
         BulletController newBullet = BulletManager.Instance.BulletSpawner.Spawn(GetBullet(), firePoint.transform.position);
